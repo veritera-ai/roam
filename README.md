@@ -1,9 +1,10 @@
 <p align="center">
-  <strong>Your AI agents can't talk to each other. ROAM fixes that.</strong>
+  <strong>The agentic OS for autonomous systems.</strong>
 </p>
 
 <p align="center">
-  Cross-framework orchestration for autonomous agents — local-first, zero cloud dependency.
+  Trustless. Heterogeneous. Local.<br />
+  Identity for every agent, persistent shared memory across runtimes, and behavioral intelligence that catches drift before it ships.
 </p>
 
 <p align="center">

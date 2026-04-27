@@ -16,11 +16,13 @@
 
 ---
 
-## The Problem
+## Why ROAM Exists
 
-You have agents on Claude Code, n8n, LangChain, and CrewAI. They run on different runtimes, speak different protocols, and have no idea the others exist. When one drifts, the rest keep going. When you need them to coordinate, you end up duct-taping webhooks, polling shared databases, and writing custom glue code for every pair. You are the bottleneck in a system that was supposed to be autonomous.
+You have agents on Claude Code, n8n, LangChain, and CrewAI. They run on different runtimes, speak different protocols, and have no idea the others exist. When one drifts, the rest keep going. When one finishes, nobody picks up the next task. There is no shared memory, no identity, no lifecycle, no governance. You are the operating system — and you don't scale.
 
-**ROAM** (Republic of Autonomous Machines) is a cross-framework agent orchestration system. It gives every agent — regardless of framework — a shared communication layer, lifecycle management, and behavioral coordination. 14 packages, 52,667 lines of TypeScript, 30 frameworks, one protocol.
+**ROAM** (Republic of Autonomous Machines) is the operating system for autonomous agents. Not a wrapper. Not a framework. An OS — with a file system, persistent memory, identity, governance, behavioral intelligence, lifecycle management, a coordination kernel, and a desktop application. Eight layers, each doing something different, all working together. 14 packages, 52,667 lines of TypeScript, 30 frameworks, one protocol.
+
+For the first time, agents from different frameworks talk to each other — and you can watch it happen live.
 
 ## Quick Start
 
@@ -38,57 +40,63 @@ roam agent add --name analyst --framework langchain
 # Register a second agent on a different framework
 roam agent add --name reviewer --framework crewai
 
-# Start orchestration
+# Start the OS
 roam start
 ```
 
 ROAM runs entirely on your machine. No cloud accounts, no API keys, no telemetry.
 
-## What ROAM Does
+## Eight Layers. One OS.
 
-### Cross-Framework Communication
-Agents on different frameworks exchange structured messages through a shared file-based protocol. No custom integrations. No shared databases. Works with 30 frameworks out of the box.
+### L01 — File System
+Every agent reads and writes files. ROAM builds on this universal primitive — a shared file-based protocol that works across 30 frameworks without custom integrations.
 
-### Lifecycle Management
-Agents degrade over time — context windows fill, behavior drifts, outputs lose coherence. ROAM handles automated transitions: when an agent becomes unhealthy, the system swaps it out, preserves identity continuity, and the rest of the team never notices.
+### L02 — Persistent Memory
+Agents forget. Context windows fill, models swap, sessions end. ROAM's memory layer outlives every agent that writes to it. Shared state that persists across runtimes, across swaps, across time.
 
-### Behavioral Coordination
-Peer-based drift detection, not self-reporting. Agents observe each other. When behavior deviates from established patterns, the system surfaces it before the damage compounds.
+### L03 — Identity and Security
+Every agent gets a cryptographic identity, a job description, and a signed constitution. Privacy-first — agents see only what their role permits.
 
-### Trust Score
-Every agent carries a Trust Score derived from behavioral pattern analysis. Healthy or unhealthy — measured continuously, not checked once at deployment.
+### L04 — Rules and Governance
+Behavioral boundaries defined by the operator, enforced by the system. Not suggestions — rules. Signed, versioned, tamper-evident.
 
-### Desktop Application
-Native desktop app built on Tauri v2. Full GUI for workspace management, agent monitoring, and real-time coordination. No browser required.
+### L05 — The Coordination Kernel
+An invisible process that manages agent conversations, task routing, escalation, and self-healing. The kernel that makes the OS an OS.
 
-### 27 CLI Commands
-Complete control from the terminal. Agent registration, workspace management, rule configuration, monitoring, transitions — everything the GUI does, the CLI does too.
+### L06 — Behavioral Intelligence
+Peer-based drift detection, not self-reporting. Agents observe each other. Every agent carries a Trust Score — healthy or unhealthy, measured continuously, not checked once at deployment.
+
+### L07 — ROAM Live
+Agents from any framework talking to each other in natural language — and you can watch it happen in real time. A live feed of your autonomous team working, coordinating, flagging concerns, and making decisions.
+
+### L08 — Desktop Application
+Native app built on Tauri v2. Full GUI, 27 CLI commands, Telegram and Discord notifications. No browser required.
 
 ## Architecture
 
-ROAM is an 8-layer stack. This repository contains the protocol specification and SDK (layers L01-L03). The engine and runtime layers are proprietary.
-
 ```
 +------------------------------------------------------------------+
-|  L07  Desktop Application (Tauri v2)                             |
+|  L08  Desktop Application + CLI (Tauri v2, 27 commands)          |
 +------------------------------------------------------------------+
-|  L06  CLI Interface (27 commands)                                |
+|  L07  ROAM Live (real-time cross-framework feed)                 |
 +------------------------------------------------------------------+
-|  L05  Orchestration Engine                                       |
+|  L06  Behavioral Intelligence + Trust Score                      |
 +------------------------------------------------------------------+
-|  L04  Behavioral Intelligence                                    |
+|  L05  Coordination Kernel (Steward)                              |
 +------------------------------------------------------------------+
-|  L03  Rule Evaluation                                            |
+|  L04  Rules and Governance (signed constitution)                 |
 +------------------------------------------------------------------+
-|  L02  Framework Adapters (30 frameworks)                         |
+|  L03  Identity and Security                                      |
 +------------------------------------------------------------------+
-|  L01  File-Based Communication Protocol                          |
+|  L02  Persistent Memory                                          |
++------------------------------------------------------------------+
+|  L01  File System Protocol (30 frameworks)                       |
 +------------------------------------------------------------------+
 |  EYDII  Trust Layer (content-blind, trustless, mathematical)     |
 +------------------------------------------------------------------+
 ```
 
-Layers L01-L03 are MIT-licensed and available in this repository. Layers L04-L07 are part of the proprietary engine distributed via npm.
+This repository contains the protocol specification and SDK. The engine source code is in a private repository and distributed as compiled packages via npm.
 
 ## Supported Frameworks
 
@@ -134,7 +142,7 @@ Layers L01-L03 are MIT-licensed and available in this repository. Layers L04-L07
 | Google ADK | Supported |
 | Mastra | Supported |
 
-### Automation and Orchestration
+### Automation
 
 | Platform | Status |
 |----------|--------|

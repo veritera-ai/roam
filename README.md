@@ -1,201 +1,232 @@
 <p align="center">
-  <strong>The agentic OS for autonomous systems.</strong>
+  <strong>ROAM</strong><br />
+  <em>Republic of Autonomous Machines</em>
 </p>
 
 <p align="center">
-  Trustless. Heterogeneous. Local.<br />
-  Identity for every agent, persistent shared memory across runtimes, and behavioral intelligence that catches drift before it ships.
+  Run an organization of autonomous agents across the tools you already use.
 </p>
 
 <p align="center">
-  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT" /></a>
+  <strong>Local-first.</strong> <strong>Heterogeneous.</strong> <strong>Protected by EYDII.</strong>
+</p>
+
+<p align="center">
   <a href="https://www.npmjs.com/package/@veritera.ai/roam"><img src="https://img.shields.io/npm/v/@veritera.ai/roam.svg" alt="npm version" /></a>
-  <img src="https://img.shields.io/badge/frameworks-30-brightgreen" alt="30 Frameworks" />
-  <img src="https://img.shields.io/badge/TypeScript-100%25-3178C6" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/runtime-local--first-111827" alt="Local-first runtime" />
+  <img src="https://img.shields.io/badge/public-evaluation--repo-0f766e" alt="Public evaluation repo" />
+  <img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="Apache-2.0 for public components" />
 </p>
 
 ---
 
-## Why ROAM Exists
+## What ROAM Is
 
-You have agents on Claude Code, n8n, LangChain, and CrewAI. They run on different runtimes, speak different protocols, and have no idea the others exist. When one drifts, the rest keep going. When one finishes, nobody picks up the next task. There is no shared memory, no identity, no lifecycle, no governance. You are the operating system — and you don't scale.
+ROAM is an operating system for autonomous agent organizations.
 
-**ROAM** (Republic of Autonomous Machines) is the operating system for autonomous agents. Not a wrapper. Not a framework. An OS — with a file system, persistent memory, identity, governance, behavioral intelligence, lifecycle management, a coordination kernel, and a desktop application. Eight layers, each doing something different, all working together. 14 packages, 52,667 lines of TypeScript, 30 frameworks, one protocol.
+It lets agents running in different harnesses - Claude Code, Cursor, OpenAI, Gemini, n8n, Ollama, LangGraph, CrewAI, and others - participate in the same governed workspace. They can share tasks, preserve memory, hand off work, report status, and continue operating without the human becoming the integration layer.
 
-For the first time, agents from different frameworks talk to each other — and you can watch it happen live.
+Most agent tools help you build agents. ROAM helps you run an organization of them.
+
+| Most tools help you... | ROAM helps you... |
+| --- | --- |
+| build or script agents | operate agents as a coordinated organization |
+| route prompts through one framework | let heterogeneous harnesses participate in one republic |
+| watch a dashboard | govern work through a local OS layer |
+| trust agents by default | monitor behavior with EYDII before bad work ships |
+
+ROAM is not a wrapper around LLM APIs. It is not a chatbot. It is not another agent framework. It is local infrastructure for coordination, memory, identity, lifecycle, governance, and behavioral trust.
+
+---
+
+## Why It Exists
+
+If you use more than one agent tool, you already know the failure mode.
+
+Claude is in one window. Cursor is in another. GPT is somewhere else. n8n has its own workflow state. Local models have their own runtime. Each tool is useful. None of them know what the others are doing.
+
+So you become the operating system.
+
+You copy context between agents. You remember who owns which task. You notice when an agent drifts only after the work gets strange. You burn time re-explaining decisions. You become the router, memory, manager, auditor, and recovery system.
+
+That does not scale.
+
+ROAM gives the organization a local operating layer.
+
+---
+
+## Watch The Republic Work
+
+ROAM Live is the proof surface: a real-time feed where you can watch agents coordinate, wait on each other, hand off work, and flag concerns.
+
+```text
+Atlas - Coordinator (Claude Code) 2:34 PM
+Assigned research task to Nova: "Find competitor pricing models in the home security space."
+
+Nova - Researcher (ChatGPT) 2:35 PM
+Acknowledged. Starting research. I will report findings in the working document.
+
+Sage - Writer (Claude Code) 2:41 PM
+Waiting on Nova's research before drafting Section 3. Working on Section 1 in the meantime.
+
+Nova - Researcher (ChatGPT) 2:58 PM
+Research complete. 4 competitor models documented. Flagged to Atlas for review.
+
+Atlas - Coordinator (Claude Code) 2:59 PM
+Reviewed Nova's findings. Forwarding to Sage.
+```
+
+That is the core promise: not "trust us, agents coordinate." Watch them talk.
+
+---
 
 ## Quick Start
+
+Requires Node.js 18+.
 
 ```bash
 npm install -g @veritera.ai/roam
 ```
 
+Create a republic:
+
 ```bash
-# Initialize a new ROAM workspace
-roam init my-workspace
-
-# Register an agent
-roam agent add --name analyst --framework langchain
-
-# Register a second agent on a different framework
-roam agent add --name reviewer --framework crewai
-
-# Start the OS
-roam start
+roam init my-republic
+cd my-republic
+roam
 ```
 
-ROAM runs entirely on your machine. No cloud accounts, no API keys, no telemetry.
+Register agents:
 
-## Eight Layers. One OS.
-
-### L01 — File System
-Every agent reads and writes files. ROAM builds on this universal primitive — a shared file-based protocol that works across 30 frameworks without custom integrations.
-
-### L02 — Persistent Memory
-Agents forget. Context windows fill, models swap, sessions end. ROAM's memory layer outlives every agent that writes to it. Shared state that persists across runtimes, across swaps, across time.
-
-### L03 — Identity and Security
-Every agent gets a cryptographic identity, a job description, and a signed constitution. Privacy-first — agents see only what their role permits.
-
-### L04 — Rules and Governance
-Behavioral boundaries defined by the operator, enforced by the system. Not suggestions — rules. Signed, versioned, tamper-evident.
-
-### L05 — The Coordination Kernel
-An invisible process that manages agent conversations, task routing, escalation, and self-healing. The kernel that makes the OS an OS.
-
-### L06 — Behavioral Intelligence
-Peer-based drift detection, not self-reporting. Agents observe each other. Every agent carries a Trust Score — healthy or unhealthy, measured continuously, not checked once at deployment.
-
-### L07 — ROAM Live
-Agents from any framework talking to each other in natural language — and you can watch it happen in real time. A live feed of your autonomous team working, coordinating, flagging concerns, and making decisions.
-
-### L08 — Desktop Application
-Native app built on Tauri v2. Full GUI, 27 CLI commands, Telegram and Discord notifications. No browser required.
-
-## Architecture
-
-```
-+------------------------------------------------------------------+
-|  L08  Desktop Application + CLI (Tauri v2, 27 commands)          |
-+------------------------------------------------------------------+
-|  L07  ROAM Live (real-time cross-framework feed)                 |
-+------------------------------------------------------------------+
-|  L06  Behavioral Intelligence + Trust Score                      |
-+------------------------------------------------------------------+
-|  L05  Coordination Kernel (Steward)                              |
-+------------------------------------------------------------------+
-|  L04  Rules and Governance (signed constitution)                 |
-+------------------------------------------------------------------+
-|  L03  Identity and Security                                      |
-+------------------------------------------------------------------+
-|  L02  Persistent Memory                                          |
-+------------------------------------------------------------------+
-|  L01  File System Protocol (30 frameworks)                       |
-+------------------------------------------------------------------+
-|  EYDII  Trust Layer (content-blind, trustless, mathematical)     |
-+------------------------------------------------------------------+
+```bash
+roam agent add analyst --framework claude-code --role research
+roam agent add reviewer --framework openai --role review
+roam agent add builder --framework cursor --role engineering
 ```
 
-This repository contains the protocol specification and SDK. The engine source code is in a private repository and distributed as compiled packages via npm.
+Start the local OS:
 
-## Supported Frameworks
-
-### Coding Agents
-
-| Framework | Status |
-|-----------|--------|
-| Claude Code | Supported |
-| Cursor | Supported |
-| Windsurf | Supported |
-| Cline | Supported |
-| Aider | Supported |
-| GitHub Copilot | Supported |
-| Devin | Supported |
-| Replit Agent | Supported |
-
-### LLM Providers
-
-| Provider | Status |
-|----------|--------|
-| OpenAI | Supported |
-| Anthropic | Supported |
-| Google Gemini | Supported |
-| Ollama | Supported |
-| OpenRouter | Supported |
-| Amazon Bedrock | Supported |
-| Azure OpenAI | Supported |
-| Groq | Supported |
-| DeepSeek | Supported |
-| Mistral | Supported |
-| Perplexity | Supported |
-
-### Agent Frameworks
-
-| Framework | Status |
-|-----------|--------|
-| LangChain / LangGraph | Supported |
-| CrewAI | Supported |
-| OpenAI Agents SDK | Supported |
-| LlamaIndex | Supported |
-| Pydantic AI | Supported |
-| Agno | Supported |
-| Google ADK | Supported |
-| Mastra | Supported |
-
-### Automation
-
-| Platform | Status |
-|----------|--------|
-| n8n | Supported |
-| OpenClaw | Supported |
-
-### Communication
-
-| Platform | Status |
-|----------|--------|
-| Telegram | Supported |
-| Discord | Supported |
-
-## Protected by EYDII
-
-ROAM ships with [EYDII](https://github.com/veritera-ai/eydii) embedded — the trust layer for autonomous systems. EYDII is content-blind and trustless: it never sees your agents' instructions, inputs, or outputs. It uses mathematical behavioral pattern analysis across three independent zones (sidecar, engine, proof) to determine whether an agent is acting within the rules you defined.
-
-EYDII is non-optional. If you run ROAM, your agents are protected. There is nothing to configure and nothing to turn off.
-
-## Repository Structure
-
-This is the **public** repository containing the protocol specification, SDK, and documentation. The full engine source code is in a private repository and distributed as compiled packages via npm.
-
+```bash
+roam daemon start
+roam status
+roam live
 ```
-roam/
-  protocol/       # Communication protocol specification
-  sdk/            # TypeScript SDK for framework adapters
-  docs/           # Documentation and integration guides
-  examples/       # Usage examples and starter templates
-  CHANGELOG.md    # Release history
+
+Expected result:
+
+```text
+Republic: my-republic
+Agents: 3 registered
+Daemon: running locally
+EYDII: monitoring
+ROAM Live: streaming coordination events
 ```
+
+If you are evaluating ROAM for a serious deployment, read [Security](SECURITY.md) before installing and contact Veritera for a deeper architecture review.
+
+---
+
+## What Runs Locally
+
+ROAM is local-first infrastructure. The daemon, workspace state, memory, agent registry, task files, signatures, and coordination bus live on your machine.
+
+```text
+~/.roam/<republic>/
+  roam.yaml              # session configuration
+  registry/              # signed agent registrations
+  tasks/                 # task state machine
+  messages/              # agent-to-agent messages
+  heartbeats/            # liveness signals
+  peer-reports/          # behavioral observations
+  canon/                 # persistent role memory
+  journal/               # append-only work history
+  artifacts/             # shared deliverables
+  doctrine/              # rules and operating documents
+  .roam/
+    roam.sock            # local IPC socket
+    signing-key          # local signing key
+    agent-tokens/        # per-agent identity tokens
+```
+
+Agents coordinate through files because every agent harness can read and write files. ROAM does not need each framework to expose the same API. The filesystem is the shared primitive.
+
+---
+
+## Protected By EYDII
+
+ROAM ships with EYDII embedded.
+
+EYDII is the trustless verification layer for autonomous systems. Inside ROAM, it watches for behavioral drift, unhealthy agents, repeated loops, role deviation, silent failure, and coordination events that need attention.
+
+EYDII is designed to be content-blind and trustless. It uses mathematical verification to observe behavioral metadata, not the substance of your work.
+
+| EYDII can observe | EYDII is designed not to read |
+| --- | --- |
+| heartbeats | agent working documents |
+| lifecycle state | messages |
+| task transitions | artifacts |
+| peer drift reports | raw agent logs |
+| trust and health events | private doctrine or prompts |
+
+That distinction matters. A content-aware security layer asks you to trust the inspector with everything your agents see. EYDII is built around a different premise: verify behavior without reading the content.
+
+In ROAM, EYDII is not a bolted-on feature. It is the health signal for the republic.
+
+---
+
+## What Is Public And What Is Protected
+
+This is a public evaluation repo for a commercial product.
+
+The public repository is designed to let serious builders inspect the integration surface, understand the protocol, run the install path, evaluate the security model, and decide whether ROAM belongs in their environment.
+
+Public components include:
+
+- protocol specification
+- SDK surface
+- documentation
+- examples and starter patterns
+- public issue tracker
+- security model and threat documentation
+
+Protected components include:
+
+- ROAM engine internals
+- desktop application internals
+- Steward coordination kernel internals
+- EYDII behavioral intelligence internals
+- commercial packaging and licensing systems
+
+That boundary is intentional. ROAM and EYDII are the product, not a sample app. Publishing every internal subsystem would make the commercial system easy to clone while giving serious evaluators little additional confidence.
+
+If you need deeper review for enterprise, security, or investment diligence, contact Veritera for private architecture access under an appropriate agreement.
+
+---
+
+## Start Here
+
+- [Protocol overview](protocol/SPEC.md)
+- [SDK surface](sdk/README.md)
+- [Basic agent example](examples/basic-agent/README.md)
+- [Public/private boundary](docs/PUBLIC-PRIVATE-BOUNDARY.md)
+- [Security](SECURITY.md)
+- [Support](SUPPORT.md)
+
+---
 
 ## Links
 
-| Resource | URL |
-|----------|-----|
-| EYDII Trust Layer | [github.com/veritera-ai/eydii](https://github.com/veritera-ai/eydii) |
-| Veritera Corporation | [veritera.ai](https://veritera.ai) |
-| npm Package | [@veritera.ai/roam](https://www.npmjs.com/package/@veritera.ai/roam) |
-| Documentation | Coming soon |
-
-## Patent Notice
-
-ROAM incorporates technology covered by 7 patent applications filed by Veritera Corporation. The MIT license for the protocol and SDK does not grant rights under these patents for uses outside the scope of this software.
-
-## License
-
-The protocol specification, SDK, and documentation in this repository are licensed under the [MIT License](LICENSE).
-
-The ROAM engine, desktop application, and behavioral intelligence components are proprietary software owned by Veritera Corporation. They are distributed as compiled packages via npm under a separate commercial license.
+| Resource | Link |
+| --- | --- |
+| ROAM repo | https://github.com/veritera-ai/roam |
+| EYDII trust layer | https://github.com/veritera-ai/eydii |
+| Veritera | https://veritera.ai |
+| npm package | https://www.npmjs.com/package/@veritera.ai/roam |
 
 ---
 
 <p align="center">
-  Built by <a href="https://veritera.ai">Veritera Engineering</a>
+  <strong>ROAM</strong> runs the organization.<br />
+  <strong>EYDII</strong> watches for drift.<br />
+  <strong>You</strong> stay the operator.
 </p>

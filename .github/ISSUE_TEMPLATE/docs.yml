@@ -1,0 +1,24 @@
+name: Documentation
+description: Report unclear, missing, or incorrect public documentation.
+title: "[Docs]: "
+labels: ["documentation", "needs-triage"]
+body:
+  - type: textarea
+    id: page
+    attributes:
+      label: Page or section
+      description: Where is the documentation issue?
+    validations:
+      required: true
+  - type: textarea
+    id: issue
+    attributes:
+      label: What is confusing or missing?
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested change
+    validations:
+      required: false

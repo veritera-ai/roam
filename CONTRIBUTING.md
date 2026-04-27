@@ -1,36 +1,38 @@
-# Contributing to ROAM
+# Contributing
 
-Thank you for your interest in contributing to ROAM.
+ROAM is a commercial product with a public protocol, SDK, documentation, examples, and evaluation surface.
 
-## What You Can Contribute
+We welcome contributions that improve the public integration layer:
 
-This repository contains the ROAM protocol specification and developer SDK. Contributions are welcome in these areas:
+- protocol documentation
+- SDK examples
+- adapter examples
+- install and setup documentation
+- security documentation
+- reproducible bugs in public components
+- small fixes that make evaluation clearer
 
-- **Protocol types and schemas** — Improvements to the coordination protocol
-- **SDK enhancements** — New methods, better ergonomics, additional framework helpers
-- **Documentation** — Corrections, clarifications, examples
-- **Bug reports** — Issues with the protocol spec or SDK
-- **Framework integration guides** — Examples of connecting new frameworks to ROAM
+Please do not submit large rewrites, product-core implementations, or speculative architecture changes before opening an issue. The engine, desktop app internals, Steward coordination internals, EYDII behavioral intelligence, and commercial licensing systems are protected product areas.
 
-## What Lives Elsewhere
+## Before Opening A PR
 
-The ROAM daemon, Control Room, and EYDII trust layer are proprietary and maintained by Veritera Engineering. Issues and feature requests for those components are welcome here as GitHub Issues — the team reviews them regularly.
+1. Open an issue describing the problem or improvement.
+2. Keep the change focused.
+3. Include reproduction steps for bugs.
+4. Update docs or examples when behavior changes.
+5. Do not include credentials, `.roam/` state, agent logs, customer data, or private PRD material.
 
-## How to Submit
+## Development
 
-1. Fork this repository
-2. Create a branch (`git checkout -b my-change`)
-3. Make your changes
-4. Run type checking: `cd packages/protocol && npx tsc --noEmit`
-5. Submit a pull request with a clear description
+```bash
+npm install
+npm run build
+npm run check
+npm test
+```
 
-## Code Style
+## Security
 
-- TypeScript, ES2022 target
-- No comments unless the WHY is non-obvious
-- Prefer explicit types over inference for exported functions
-- Use `zod` for runtime validation schemas
+Do not open public issues for vulnerabilities. Send reports to `security@veritera.ai`.
 
-## License
-
-By contributing, you agree that your contributions will be licensed under the MIT License.
+See [SECURITY.md](SECURITY.md).

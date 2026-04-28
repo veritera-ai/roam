@@ -1,8 +1,0 @@
-ROAM
-Copyright 2026 Veritera Corporation
-
-The public protocol, SDK, documentation, and examples in this repository are made available under the Apache License, Version 2.0.
-
-ROAM also includes protected commercial technology owned by Veritera Corporation. Unless explicitly included in this repository under the Apache License, ROAM engine internals, desktop application internals, Steward coordination internals, EYDII behavioral intelligence components, commercial packaging, and licensing systems are not licensed as open source.
-
-ROAM and EYDII include technology covered by patent applications filed by Veritera Corporation. ROAM and EYDII employ mathematical verification throughout. The Apache License applies only to the licensed public components made available in this repository.

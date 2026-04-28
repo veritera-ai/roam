@@ -15,7 +15,7 @@
   <a href="https://www.npmjs.com/package/@veritera.ai/roam"><img src="https://img.shields.io/npm/v/@veritera.ai/roam.svg" alt="npm version" /></a>
   <img src="https://img.shields.io/badge/runtime-local--first-111827" alt="Local-first runtime" />
   <img src="https://img.shields.io/badge/public-evaluation--repo-0f766e" alt="Public evaluation repo" />
-  <img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="Apache-2.0 for public components" />
+  <img src="https://img.shields.io/badge/license-proprietary-111827.svg" alt="Proprietary — Veritera Corporation" />
 </p>
 
 ---

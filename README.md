@@ -89,28 +89,27 @@ ROAM gives the organization a local operating layer — without adding a token t
 
 ---
 
-## Watch The Republic Work
+## What It Looks Like
 
-ROAM Live is the proof surface: a real-time feed where you can watch agents coordinate, wait on each other, hand off work, and flag concerns.
+Install and run `roam dashboard --watch` to see your agents in real time:
 
 ```text
-Atlas - Coordinator (Claude Code) 2:34 PM
-Assigned research task to Nova: "Find competitor pricing models in the home security space."
-
-Nova - Researcher (ChatGPT) 2:35 PM
-Acknowledged. Starting research. I will report findings in the working document.
-
-Sage - Writer (Claude Code) 2:41 PM
-Waiting on Nova's research before drafting Section 3. Working on Section 1 in the meantime.
-
-Nova - Researcher (ChatGPT) 2:58 PM
-Research complete. 4 competitor models documented. Flagged to Atlas for review.
-
-Atlas - Coordinator (Claude Code) 2:59 PM
-Reviewed Nova's findings. Forwarding to Sage.
+┌─────────────────────────────────────────────────────────────────────┐
+│ ROAM Dashboard                                      3 agents · live │
+├──────────────┬───────────┬──────────┬────────┬──────────────────────┤
+│ Agent        │ Harness   │ Role     │ State  │ Trust Score          │
+├──────────────┼───────────┼──────────┼────────┼──────────────────────┤
+│ analyst      │ claude    │ research │ ACTIVE │ ████████░░ 82%       │
+│ reviewer     │ openai    │ review   │ ACTIVE │ █████████░ 91%       │
+│ builder      │ cursor    │ engineer │ IDLE   │ █████████░ 88%       │
+├──────────────┴───────────┴──────────┴────────┴──────────────────────┤
+│ Tasks: 2 in progress · 1 queued · 4 done                           │
+│ EYDII: monitoring · 0 drift alerts · last sweep 34s ago            │
+│ Daemon: PID 41823 · uptime 2h 14m · socket .roam/roam.sock        │
+└─────────────────────────────────────────────────────────────────────┘
 ```
 
-Every message above was routed through local files. Zero API calls from ROAM. The agents used their own providers for the actual work.
+Three agents from three different tools — Claude Code, OpenAI, Cursor — coordinating through one local daemon. Each has a Trust Score. EYDII is running drift sweeps in the background. Zero tokens spent by ROAM.
 
 ---
 
@@ -122,11 +121,11 @@ Requires Node.js 18+.
 npm install -g @veritera.ai/roam
 ```
 
-Create a republic:
+Create a workspace:
 
 ```bash
-roam init my-republic
-cd my-republic
+roam init my-project
+cd my-project
 roam
 ```
 
@@ -163,7 +162,7 @@ If you are evaluating ROAM for a serious deployment, read [Security](SECURITY.md
 ROAM is local-first infrastructure. The daemon, workspace state, memory, agent registry, task files, signatures, and coordination bus live on your machine.
 
 ```text
-~/.roam/<republic>/
+~/.roam/<project>/
   roam.yaml              # session configuration
   registry/              # signed agent registrations
   tasks/                 # task state machine

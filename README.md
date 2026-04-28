@@ -186,21 +186,60 @@ Agents coordinate through files because every agent harness can read and write f
 
 ## Protected By EYDII
 
-ROAM ships with EYDII embedded.
+Every other agent safety tool works the same way: it reads what your agent is doing and decides whether to allow it. That means the safety layer sees your code, your prompts, your data, your customers' data, everything. You are trusting the guard with the keys to the vault.
 
-EYDII is the trust layer for autonomous systems. Inside ROAM, it watches for behavioral drift, unhealthy agents, repeated loops, role deviation, silent failure, and coordination events that need attention.
+EYDII does not work that way.
 
-EYDII is content-blind. It observes behavioral metadata, not the substance of your work. It does not use an LLM to analyze your agents. It uses mathematical pattern matching on behavioral signals — timing, state transitions, peer reports, verification patterns.
+EYDII is a trustless behavioral intelligence layer. It is embedded in ROAM, always on, and it monitors every agent in your organization without reading a single line of their work.
 
-| EYDII can observe | EYDII does not read |
+### How it works without reading your work
+
+EYDII watches behavioral metadata: when an agent acts, what state it transitions to, how long between actions, whether it verified before completing, whether peers flagged it, whether it is drifting from its assigned role. These are structural signals — timing, cadence, state flow, peer reports — not content.
+
+It never sees the prompt. It never sees the response. It never sees the code, the document, the artifact, the message. The boundary is architectural, not a policy toggle you can accidentally disable.
+
+### What EYDII catches
+
+Agents do not fail the way software fails. Software crashes. Agents drift. They keep running, keep producing output, but the output gradually stops matching the role they were trusted to perform. By the time you notice, the damage is in your shared memory, your artifacts, your deliverables.
+
+EYDII detects these patterns before they spread:
+
+- **Silent drift** — the agent is active but slowly moving outside its role boundaries
+- **Phantom progress** — reporting completion without evidence of verification
+- **Confidence-effort inversion** — becoming more assertive while doing less real work
+- **Authorization creep** — taking actions beyond what the role permits
+- **Cascade amplification** — one drifting agent's bad output corrupting others downstream
+- **Stalled loops** — repeated attempts at the same task with no forward progress
+
+Each pattern is detected from behavioral metadata alone. No LLM call. No content inspection. No token cost.
+
+### Trust Score
+
+Every agent in your ROAM organization carries a Trust Score. It is not a one-time grade — it is a live signal derived from EYDII's behavioral analysis: operating cadence, verification patterns, peer reports, role adherence, and health over time.
+
+When an agent drifts and recovers, the score reflects it. When an agent keeps degrading, the score reflects that too. When a role is swapped to a fresh agent, the Trust Score history stays attached to the role so the standard does not reset with the model.
+
+You decide the threshold. EYDII gives you the signal. You keep the authority.
+
+### Why this matters
+
+If you are running one agent in one tool, you can watch it yourself. If you are running five agents across Claude Code, Cursor, ChatGPT, and n8n, you cannot watch all of them. And the failure mode of an unwatched agent is not a crash — it is quiet degradation that looks like progress until the work is already shared.
+
+EYDII exists because behavioral trust is a different problem from access control, content filtering, or prompt injection defense. Those layers protect the perimeter. EYDII watches what happens after the agent is already inside, already trusted, already working — and tells you when that trust should be reconsidered.
+
+No other coordination system ships with this. ROAM does.
+
+| EYDII observes | EYDII never reads |
 | --- | --- |
-| heartbeats | agent working documents |
-| lifecycle state | messages |
-| task transitions | artifacts |
-| peer drift reports | raw agent logs |
-| trust and health events | private doctrine or prompts |
+| heartbeat timing and cadence | agent working documents |
+| lifecycle state transitions | prompts or responses |
+| task claim, completion, failure patterns | source code or artifacts |
+| peer-to-peer drift reports | messages between agents |
+| verification gaps and role deviation | private doctrine or files |
 
-Zero tokens. Zero content inspection. Behavioral trust from metadata alone.
+Zero tokens. Zero content inspection. Trustless behavioral intelligence from metadata alone.
+
+Learn more: [EYDII on GitHub](https://github.com/veritera-ai/eydii)
 
 ---
 

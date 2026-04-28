@@ -109,7 +109,7 @@ Start the local OS:
 ```bash
 roam daemon start
 roam status
-roam live
+roam dashboard --watch
 ```
 
 Expected result:
@@ -119,7 +119,6 @@ Republic: my-republic
 Agents: 3 registered
 Daemon: running locally
 EYDII: monitoring
-ROAM Live: streaming coordination events
 ```
 
 If you are evaluating ROAM for a serious deployment, read [Security](SECURITY.md) before installing and contact Veritera for a deeper architecture review.
@@ -156,9 +155,9 @@ Agents coordinate through files because every agent harness can read and write f
 
 ROAM ships with EYDII embedded.
 
-EYDII is the trustless verification layer for autonomous systems. Inside ROAM, it watches for behavioral drift, unhealthy agents, repeated loops, role deviation, silent failure, and coordination events that need attention.
+EYDII is the trust layer for autonomous systems. Inside ROAM, it watches for behavioral drift, unhealthy agents, repeated loops, role deviation, silent failure, and coordination events that need attention.
 
-EYDII is designed to be content-blind and trustless. It uses mathematical verification to observe behavioral metadata, not the substance of your work.
+EYDII is designed to be content-blind. It observes behavioral metadata, not the substance of your work.
 
 | EYDII can observe | EYDII is designed not to read |
 | --- | --- |

@@ -8,34 +8,68 @@
 </p>
 
 <p align="center">
-  <strong>Local-first.</strong> <strong>Heterogeneous.</strong> <strong>Protected by EYDII.</strong>
+  <strong>Local-first.</strong> <strong>Heterogeneous.</strong> <strong>Zero token overhead.</strong> <strong>Protected by EYDII.</strong>
 </p>
 
 <p align="center">
   <a href="https://www.npmjs.com/package/@veritera.ai/roam"><img src="https://img.shields.io/npm/v/@veritera.ai/roam.svg" alt="npm version" /></a>
   <img src="https://img.shields.io/badge/runtime-local--first-111827" alt="Local-first runtime" />
-  <img src="https://img.shields.io/badge/public-evaluation--repo-0f766e" alt="Public evaluation repo" />
+  <img src="https://img.shields.io/badge/LLM_tokens-zero-0f766e" alt="Zero LLM token overhead" />
   <img src="https://img.shields.io/badge/license-proprietary-111827.svg" alt="Proprietary — Veritera Corporation" />
 </p>
 
 ---
 
-## What ROAM Is
+## ROAM Does Not Consume Your LLM Tokens
 
-ROAM is an operating system for autonomous agent organizations.
+This is the first thing developers ask, so we put it first.
 
-It lets agents running in different harnesses - Claude Code, Cursor, OpenAI, Gemini, n8n, Ollama, LangGraph, CrewAI, and others - participate in the same governed workspace. They can share tasks, preserve memory, hand off work, report status, and continue operating without the human becoming the integration layer.
+ROAM does not make LLM API calls. It does not proxy your model traffic. It does not inject a coordinator model between your agents. It does not add a "planner" or "orchestrator" that burns tokens to decide what to do next.
 
-Most agent tools help you build agents. ROAM helps you run an organization of them.
+Your tokens go to the harnesses you chose — Claude Code, OpenAI, Cursor, Gemini, Ollama, whatever you run. ROAM never touches that traffic.
 
-| Most tools help you... | ROAM helps you... |
-| --- | --- |
-| build or script agents | operate agents as a coordinated organization |
-| route prompts through one framework | let heterogeneous harnesses participate in one republic |
-| watch a dashboard | govern work through a local OS layer |
-| trust agents by default | monitor behavior with EYDII before bad work ships |
+**How ROAM coordinates without tokens:**
 
-ROAM is not a wrapper around LLM APIs. It is not a chatbot. It is not another agent framework. It is local infrastructure for coordination, memory, identity, lifecycle, governance, and behavioral trust.
+```text
+You type: roam task add "Research competitor pricing" --capability researcher
+
+What happens:
+  1. ROAM writes a task file to tasks/          → 0 tokens
+  2. The daemon matches it to an agent           → 0 tokens (file-based routing)
+  3. The agent's harness reads the task           → 0 tokens (local file read)
+  4. The agent does the work                      → YOUR tokens, YOUR provider, YOUR keys
+  5. The agent writes a completion to tasks/      → 0 tokens
+  6. ROAM signs the transition and journals it    → 0 tokens (local Ed25519)
+  7. EYDII observes the behavioral metadata       → 0 tokens (pattern matching, not LLM)
+  8. The daemon routes the next task               → 0 tokens
+```
+
+Every agent framework that can read and write files can participate. That is the design. No wrapper. No proxy. No middleware model. No token tax.
+
+The only tokens spent are the ones your agents spend doing real work, through the providers you already pay for.
+
+---
+
+## What ROAM Is (And Is Not)
+
+We call ROAM an "operating system" for agent organizations. That word carries baggage, so here is what we mean and what we do not mean.
+
+**ROAM is not:**
+- A traditional OS (it does not manage hardware, processes, or kernel resources)
+- An agent framework (it does not help you build agents — use LangChain, CrewAI, or whatever you prefer)
+- An LLM wrapper (it never calls a model)
+- A prompt router (it does not sit between your agent and its provider)
+- Heavy infrastructure (it is a single Node.js daemon and a CLI)
+
+**ROAM is:**
+- A coordination layer — tasks, handoffs, routing, and scheduling across agents that run in different tools
+- A memory layer — canon, journal, and shared knowledge that survives agent swaps and session restarts
+- An identity layer — each agent has a signed registration, a token, and a verifiable history
+- A trust layer — EYDII watches behavioral patterns for drift, not by reading your work, but by observing metadata
+
+Think of it this way: if your agents are employees, ROAM is the office. The office does not do the employees' work. It gives them desks, a task board, a shared drive, nameplates, and a security system. The employees bring their own skills and tools.
+
+The daemon is 12 MB. It runs on a Unix socket. It coordinates through local files. That is the entire footprint.
 
 ---
 
@@ -51,7 +85,7 @@ You copy context between agents. You remember who owns which task. You notice wh
 
 That does not scale.
 
-ROAM gives the organization a local operating layer.
+ROAM gives the organization a local operating layer — without adding a token to your bill.
 
 ---
 
@@ -76,7 +110,7 @@ Atlas - Coordinator (Claude Code) 2:59 PM
 Reviewed Nova's findings. Forwarding to Sage.
 ```
 
-That is the core promise: not "trust us, agents coordinate." Watch them talk.
+Every message above was routed through local files. Zero API calls from ROAM. The agents used their own providers for the actual work.
 
 ---
 
@@ -104,7 +138,7 @@ roam agent add reviewer --framework openai --role review
 roam agent add builder --framework cursor --role engineering
 ```
 
-Start the local OS:
+Start the daemon:
 
 ```bash
 roam daemon start
@@ -112,13 +146,12 @@ roam status
 roam dashboard --watch
 ```
 
-Expected result:
+Generate harness instructions (tells each agent how to talk to the daemon):
 
-```text
-Republic: my-republic
-Agents: 3 registered
-Daemon: running locally
-EYDII: monitoring
+```bash
+roam instructions claude-code
+roam instructions openai
+roam instructions cursor
 ```
 
 If you are evaluating ROAM for a serious deployment, read [Security](SECURITY.md) before installing and contact Veritera for a deeper architecture review.
@@ -147,7 +180,7 @@ ROAM is local-first infrastructure. The daemon, workspace state, memory, agent r
     agent-tokens/        # per-agent identity tokens
 ```
 
-Agents coordinate through files because every agent harness can read and write files. ROAM does not need each framework to expose the same API. The filesystem is the shared primitive.
+Agents coordinate through files because every agent harness can read and write files. ROAM does not need each framework to expose the same API. The filesystem is the shared primitive. No network calls. No cloud dependency. No token spend.
 
 ---
 
@@ -157,9 +190,9 @@ ROAM ships with EYDII embedded.
 
 EYDII is the trust layer for autonomous systems. Inside ROAM, it watches for behavioral drift, unhealthy agents, repeated loops, role deviation, silent failure, and coordination events that need attention.
 
-EYDII is designed to be content-blind. It observes behavioral metadata, not the substance of your work.
+EYDII is content-blind. It observes behavioral metadata, not the substance of your work. It does not use an LLM to analyze your agents. It uses mathematical pattern matching on behavioral signals — timing, state transitions, peer reports, verification patterns.
 
-| EYDII can observe | EYDII is designed not to read |
+| EYDII can observe | EYDII does not read |
 | --- | --- |
 | heartbeats | agent working documents |
 | lifecycle state | messages |
@@ -167,47 +200,13 @@ EYDII is designed to be content-blind. It observes behavioral metadata, not the 
 | peer drift reports | raw agent logs |
 | trust and health events | private doctrine or prompts |
 
-That distinction matters. A content-aware security layer asks you to trust the inspector with everything your agents see. EYDII is built around a different premise: verify behavior without reading the content.
-
-In ROAM, EYDII is not a bolted-on feature. It is the health signal for the republic.
-
----
-
-## What Is Public And What Is Protected
-
-This is a public evaluation repo for a commercial product.
-
-The public repository is designed to let serious builders inspect the integration surface, understand the protocol, run the install path, evaluate the security model, and decide whether ROAM belongs in their environment.
-
-Public components include:
-
-- protocol specification
-- SDK surface
-- documentation
-- examples and starter patterns
-- public issue tracker
-- security model and threat documentation
-
-Protected components include:
-
-- ROAM engine internals
-- desktop application internals
-- Steward coordination kernel internals
-- EYDII behavioral intelligence internals
-- commercial packaging and licensing systems
-
-That boundary is intentional. ROAM and EYDII are the product, not a sample app. Publishing every internal subsystem would make the commercial system easy to clone while giving serious evaluators little additional confidence.
-
-If you need deeper review for enterprise, security, or investment diligence, contact Veritera for private architecture access under an appropriate agreement.
+Zero tokens. Zero content inspection. Behavioral trust from metadata alone.
 
 ---
 
 ## Start Here
 
-- [Protocol overview](protocol/SPEC.md)
 - [SDK surface](sdk/README.md)
-- [Basic agent example](examples/basic-agent/README.md)
-- [Public/private boundary](docs/PUBLIC-PRIVATE-BOUNDARY.md)
 - [Security](SECURITY.md)
 - [Support](SUPPORT.md)
 
@@ -217,7 +216,7 @@ If you need deeper review for enterprise, security, or investment diligence, con
 
 | Resource | Link |
 | --- | --- |
-| ROAM repo | https://github.com/veritera-ai/roam |
+| ROAM | https://github.com/veritera-ai/roam |
 | EYDII trust layer | https://github.com/veritera-ai/eydii |
 | Veritera | https://veritera.ai |
 | npm package | https://www.npmjs.com/package/@veritera.ai/roam |
@@ -227,5 +226,5 @@ If you need deeper review for enterprise, security, or investment diligence, con
 <p align="center">
   <strong>ROAM</strong> runs the organization.<br />
   <strong>EYDII</strong> watches for drift.<br />
-  <strong>You</strong> stay the operator.
+  <strong>Your tokens</strong> stay yours.
 </p>

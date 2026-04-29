@@ -2,7 +2,7 @@
   "name": "roam-public",
   "private": true,
   "description": "Public evaluation surface for ROAM, the operating system for autonomous agent organizations.",
-  "license": "Apache-2.0",
+  "license": "SEE LICENSE IN LICENSE",
   "repository": {
     "type": "git",
     "url": "https://github.com/veritera-ai/roam.git"
@@ -17,7 +17,6 @@
     "trust-layer",
     "ai-safety",
     "local-first",
-    "typescript",
-    "source-available"
+    "typescript"
   ]
 }
